@@ -1,0 +1,97 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+main {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, minmax(20rem, 1fr));
+ }
+ main.logs {
+   grid-template-rows: repeat(2, 1fr);
+   grid-template-columns: revert;
+ }
+section {
+   background-color: rgb(198,187,187,.25);
+   border-radius: 3em;
+   display: grid;
+   grid-template-rows: 1fr 2fr 1fr;
+   padding: 2rem 1.5rem;
+   margin: 2rem 0.5rem;
+ }
+section.logs {
+  grid-template-rows: 1fr 6fr;
+}
+section.logs > pre {
+  text-align: left;
+}
+section.controls {
+  grid-column-gap: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: revert;
+  height: 4rem;
+}
+section:hover {
+  background-color: rgb(198,187,187,.1);
+}
+ul {
+    list-style-type: none;
+    text-align: left;
+}
+button {
+  background-color: rgba(96,66,233,1);
+  border-radius: 0.5rem;
+  border: 0;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  outline: 0;
+  padding: 1rem 2rem;
+  transition: background 400ms, opactity 400ms;
+}
+button:active {
+  box-shadow: inset 3px 3px 12px rgba(0,0,0,.2);
+}
+button:hover {
+  opacity: .7;
+}
+.info {
+  background-color: rgb(38 158 45);
+}
+.danger {
+  background-color: rgb(244,86,86);
+}
+li.info, li.danger {
+  border-radius: 0.4rem;
+  color: white;
+  font-size: 1.1rem;
+  margin-left: -2rem;
+  padding: .3rem .3rem .3rem 1rem;
+  text-align: center;
+}
+li.info {
+  animation: gradient 3s ease infinite;
+  background: linear-gradient(-45deg, rgb(165 220 168), rgb(124 218 129), rgb(76 220 84), rgb(38 158 45));
+  background-size: 400% 400%;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+section > button {
+  display: block;
+  width: 100%;
+}
+.disabled {
+  display: none;
+}

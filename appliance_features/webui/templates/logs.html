@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{hostname} : Logs</title>
+    <link rel="stylesheet" href="/app.css">
+    <script src="/eh-loading-modal.js" charset="utf-8"></script>
+    <script src="/app.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <header>
+      <h1>{hostname} Logs</h1>
+    </header>
+    <section class="controls">
+      <button class="info" onClick="Refresh()">⤸ Refresh</button>
+      <button onClick="location.href='/cgi-bin/index.py'">⇦ Control Panel</button>
+    </section>
+    <main class="logs">
+      <section class="logs">
+        <h2>Appliance Logs</h2>
+        <pre>
+{logs}
+        </pre>
+      </section>
+    </main>
+    <eh-loading-modal id="loading-modal"></eh-loading-modal>
+    <script type="text/javascript">
+      AutoRefresh()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2 @@
+# Reboot this appliance every week
+0 {reboot_hour} * * {reboot_day} /home/pi/bin/reboot-appliance

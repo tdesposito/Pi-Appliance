@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{hostname} : Appliance Control Panel</title>
+    <link rel="stylesheet" href="/app.css">
+    <script src="/eh-confirm-modal.js" charset="utf-8"></script>
+    <script src="/eh-loading-modal.js" charset="utf-8"></script>
+    <script src="/app.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <header>
+      <h1>{hostname} Control Panel</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Appliance Status</h2>
+        <ul>
+          <li class="{appliance_status_class}">{appliance_status}</li>
+          <li>&nbsp;</li>
+          <li>Host Name: {hostname}</li>
+          <li>IP Address: {hostip}</li>
+          <li>Disk Usage: {diskpct}</li>
+          <li>Memory Usage: {mempct}%</li>
+        </ul>
+        <button class="info" onClick="Refresh()">⤸ Refresh</button>
+      </section>
+      <section class="{cups_status}">
+        <h2>Manage Printers</h2>
+        <p>
+          In the tab which opens, you'll need to bypass the security certificate ("proceed").
+        </p>
+        <button onClick="window.open('https://{hostip}:631', '_blank')">⎙ Manage Printers</button>
+      </section>
+      <section>
+        <h2>View Appliance Log</h2>
+        <p>
+          Take a look at what the appliance has been up to.
+        </p>
+        <button onClick="location.href='/cgi-bin/logs.py'">◎ View Logs</button>
+      </section>
+      <section class="{start_status}">
+        <h2>Start Appliance</h2>
+        <p>
+          This will start the appliance.
+        </p>
+        <button onClick="document.getElementById('start-modal').show()">➭ Start Appliance</button>
+        <eh-confirm-modal id="start-modal" title="Start Appliance?" onConfirm="doStart()">
+          <p>
+            Are you sure you want to start the appliance?
+          </p>
+        </eh-confirm-modal>
+      </section>
+      <section class="{stop_status}">
+        <h2>Stop Appliance</h2>
+        <p>
+          This will stop the appliance. Use this and then "Start Appliance" to
+          force an update to the appliance code.
+        </p>
+        <button onClick="document.getElementById('stop-modal').show()">⬢ Stop Appliance</button>
+        <eh-confirm-modal id="stop-modal" title="Stop Appliance?" onConfirm="doStop()">
+          <p>
+            Are you sure you want to stop the appliance?
+          </p>
+        </eh-confirm-modal>
+      </section>
+      <section>
+        <h2>Reboot Device</h2>
+        <p>
+          This will reboot the whole Raspberry Pi.
+        </p>
+        <button class="danger" onClick="document.getElementById('reboot-modal').show()">❇ Reboot Appliance</button>
+        <eh-confirm-modal id="reboot-modal" title="Reboot Device?" onConfirm="doReboot()">
+          <p>
+            Are you sure you want to reboot the device?
+          </p>
+        </eh-confirm-modal>
+      </section>
+      <section>
+        <h2>Power Off Device</h2>
+        <p>
+          This will turn the Raspberry Pi off.
+        </p>
+        <button class="danger" onClick="document.getElementById('poweroff-modal').show()">ⓧ Power Off</button>
+        <eh-confirm-modal id="poweroff-modal" title="Power Device Off?" onConfirm="doPoweroff()">
+          <p>
+            Are you sure you want to power the device off?
+          </p>
+        </eh-confirm-modal>
+      </section>
+    </main>
+    <eh-loading-modal id="loading-modal"></eh-loading-modal>
+    <script type="text/javascript">
+      AutoRefresh();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+# Enable the lighttpd process to start/stop the appliance
+www-data ALL=(ALL) NOPASSWD: /usr/sbin/shutdown
+www-data ALL=(ALL) NOPASSWD: /usr/bin/pkill
+www-data ALL=(ALL) NOPASSWD: /home/pi/bin/*
