@@ -1,0 +1,7 @@
+# This script runs on login to start the appliance
+source /home/pi/.profile
+
+if [ "`tty`" = "/dev/tty1" ]; then
+  /home/pi/bin/update-appliance
+  /home/pi/bin/start-appliance
+fi

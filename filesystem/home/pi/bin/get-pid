@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# This script restarts the appliance.
+pidfile="/var/run/user/1000/appliance.pid"
+if [ -f $pidfile ]; then
+  pid=$(<$pidfile)
+  echo "$pid"
+fi

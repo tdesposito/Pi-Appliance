@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# This script restarts the appliance.
+pidfile="/var/run/user/1000/appliance.pid"
+if [ -f $pidfile ]; then
+  echo -e "Sending exit signal to appliance"
+  pid=$(<$pidfile)
+  kill -SIGINT $pid
+  echo -n "Waiting for exit:"
+  while [ -f $pidfile ]; do
+    echo -n "."
+    sleep 1
+  done
+  echo ""
+fi

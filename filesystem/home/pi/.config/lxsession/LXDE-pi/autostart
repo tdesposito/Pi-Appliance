@@ -1,0 +1,3 @@
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+@lxterminal --command /home/pi/bin/start-appliance

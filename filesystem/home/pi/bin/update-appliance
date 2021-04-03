@@ -1,0 +1,30 @@
+#!/bin/bash
+# This script updates the appliance software. We assume we're on the branch to
+# which releases are pushed.
+
+cd /home/pi
+
+if [ -d /home/pi/appliance ]; then
+  pushd /home/pi/appliance >/dev/null
+  git pull
+  popd >/dev/null
+else
+  repo=$(grep -vE "^\s*#" /boot/EH_CONFIG/repository | tr "\n" " ")
+  if [ ! -z "{$repo// }" ]; then
+    echo -e 'Installing applicance code via Git...'
+    git clone $repo /home/pi/appliance 2>&1 >/dev/null
+    if [ $? -ne 0 ]; then
+      echo -e "\a\nError cloning repository. Run:\n\tgit clone $repo ~/appliance"
+      exit 60
+    fi
+  fi
+fi
+
+if [ -f /home/pi/appliance/requirements.txt ]; then
+  echo -e 'Installing appliance requirements...'
+  sudo python3 -m pip install --upgrade -r /home/pi/appliance/requirements.txt 2>&1 >/dev/null
+  if [ $? -ne 0 ]; then
+    echo -e '\a\nError installing requirements. Run:\n\tsudo python3 -m pip install -r ~/appliance/requirements.txt'
+    exit 61
+  fi
+fi

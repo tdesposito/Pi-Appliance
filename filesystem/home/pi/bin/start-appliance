@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# This script updates and launches the appliance software
+cd /home/pi
+
+export PYTHONPATH=/home/pi/appliance/src
+python /home/pi/appliance/src

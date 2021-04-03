@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# This script reboots the appliance.
+/home/pi/bin/stop-appliance
+
+echo -e "\n\nRebooting...\n"
+sudo reboot
