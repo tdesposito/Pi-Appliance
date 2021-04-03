@@ -1,0 +1,41 @@
+#===============================================================================
+# This is a moderately reorganized and configured version of the config.txt
+# file which ships with RaspberryPi OS. Some stuff has been removed because
+# it isn't generally important in a headless appliance. YMMV.
+#===============================================================================
+# For more options and information see
+# http://rpf.io/configtxt
+# Some settings may impact device functionality. See link above for details
+
+#-------------------------------------------------------------------------------
+# Display Config: we force HDMI 1080p mode for headless but VNC-able operation
+
+hdmi_force_hotplug=1
+hdmi_force_mode=1
+hdmi_group=2
+hdmi_mode=82
+
+#config_hdmi_boost=4
+#disable_overscan=1
+#hdmi_drive=2
+#hdmi_safe=1
+#overscan_bottom=16
+#overscan_left=16
+#overscan_right=16
+#overscan_top=16
+
+#-------------------------------------------------------------------------------
+# Device Config: we generally disable (or fail to enable) stuff we don't use.
+# Additional overlays and parameters are documented /boot/overlays/README
+
+#arm_freq=800 # NOT RECOMMENDED: Uncomment to overclock the arm. 700 MHz is the default.
+#dtparam=audio=on
+
+[pi4]
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+
+[all]
+dtoverlay=disable-bt
+dtoverlay=disable-wifi
+#dtoverlay=gpio-fan
