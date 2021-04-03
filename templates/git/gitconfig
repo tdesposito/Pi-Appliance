@@ -1,0 +1,12 @@
+[user]
+  email = appliance@example.com
+  name = RPi appliance
+
+[color]
+  status = false
+
+[init]
+  defaultBranch = main
+
+[credential]
+  helper = store
