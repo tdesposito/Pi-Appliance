@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z $2 ]; then
-  echo "Usage: $0 {hostname} {password}"
+  echo "Usage: $0 {{hostname}} {{password}}"
   exit 1
 fi
 
@@ -53,10 +53,10 @@ fi
 exitcode=$((exitcode+10))
 
 echo -e 'Getting appliance code...'
-cp /boot/appliance/git-credentials /home/pi/.git-credentials
-cp /boot/appliance/gitconfig /home/pi/.gitconfig
-repo=$(grep -vE "^\s*#" /boot/appliance/repository | tr "\n" " ")
-if [ ! -z "{$repo// }" ]; then
+cp /boot/git-credentials /home/pi/.git-credentials
+cp /boot/gitconfig /home/pi/.gitconfig
+repo=$(grep -vE "^\s*#" /boot/repository | tr "\n" " ")
+if [ ! -z "{{$repo// }}" ]; then
   git clone $repo ~/appliance >/dev/null 2>&1
   if [ $? -ne 0 ]; then
     echo -e "\a\nError cloning repository. Run:\n\tgit clone $repo ~/appliance"
