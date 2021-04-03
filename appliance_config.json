@@ -1,0 +1,9 @@
+{
+  "system_pacakges": [
+  ],
+  "appliance_features": [
+    "webui",
+    "auto-reboot"
+  ],
+  "repository": ""
+}
