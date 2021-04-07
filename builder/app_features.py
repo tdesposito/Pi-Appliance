@@ -55,9 +55,11 @@ def app_features(term):
             for line in _.read().split("\n"):
                 if line.startswith('#%%'):
                     feature = p.parts[-2]
+                    # Each row is [{key}, {Description}, {Is-Enabled?}]
                     features.append([feature, line[4:].strip(), feature in config['appliance_features']])
                     break
     update, newlist = update_features_list(term, features)
     if update:
         config['appliance_features'] = newlist
+        # TODO: if we need to get any params for our enabled features, prompt/save here
         save_config(config)

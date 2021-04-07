@@ -2,10 +2,21 @@
 import functools
 import json
 from pathlib import Path
+import subprocess
+from urllib.parse import urlparse
 
 CONFIG_FILE = Path(__file__).parent.parent / "appliance_config.json"
 SECRETS_DIR = Path(__file__).parent.parent / 'secrets'
 SECRETS_FILE = SECRETS_DIR / 'secrets.json'
+SECRETS_NAMES = {
+    'aws_access_key_id': ('AWS Access Key ID', '[A-Z0-9]{20}'),
+    'aws_secret_access_key': ('AWS Secret Access Key', '\S{40}'),
+    'region': ('AWS Region', 'us-(east|west)-[1-9]'),
+    'git_user': ('Git User Name', '\S{5}'),
+    'git_pwd': ('Git Password', '\S{5}'),
+    'repo_host': ('Repository Host', '^\S+\.(com|org|net)'),
+    'repo_url': ('Repository URL (skip https://)', '^\S+'),
+}
 
 echo = functools.partial(print, end='', flush=True)
 
@@ -50,6 +61,17 @@ def prep_screen(term, title=None):
         print(f"\n{term.bright_yellow}{title}{term.white}\n")
 
 
+def press_any_key(term, msg):
+    print(msg)
+    echo(f"\n{term.bright_blue}Press any key to return to the menu: {term.white}")
+    with term.cbreak(): term.inkey()
+    return
+
+
+def runcmd(cmd):
+    return subprocess.run(cmd.split(' '), capture_output=True)
+
+
 def save_config(config):
     with open(CONFIG_FILE, 'w') as _:
         json.dump(config, _, indent=2, sort_keys=True)
@@ -68,6 +90,7 @@ __all__ = [
     "load_config",
     "load_secrets",
     "prep_screen",
+    "runcmd",
     "save_config",
     "save_secrets",
 ]

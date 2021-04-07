@@ -1,9 +1,9 @@
 {
-  "system_pacakges": [
-  ],
   "appliance_features": [
-    "webui",
-    "auto-reboot"
+    "auto_reboot",
+    "console_autologin",
+    "cups",
+    "webui"
   ],
-  "repository": ""
+  "system_packages": []
 }

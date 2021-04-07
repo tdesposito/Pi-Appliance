@@ -3,16 +3,6 @@ import json
 
 from . import *
 
-SECRETS_NAMES = {
-    'aws_access_key_id': ('AWS Access Key ID', '[A-Z0-9]{20}'),
-    'aws_secret_access_key': ('AWS Secret Access Key', '\S{40}'),
-    'region': ('AWS Region', 'us-(east|west)-[1-9]'),
-    'git_user': ('Git User Name', '\S{5}'),
-    'git_pwd': ('Git Password', '\S{5}'),
-    'repo_host': ('Repository Host', '^\S+\.(com|org|net)'),
-    'repo_url': ('Repository URI', '^\S+'),
-}
-
 def edit_params(term):
     def update_secrets_list(term, secrets):
         spacing = ' '*5
