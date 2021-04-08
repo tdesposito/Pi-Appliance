@@ -6,6 +6,7 @@ authors = ["Todd Esposito <todd@toddesposito.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+boto3 = "^1.17.47"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"

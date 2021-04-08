@@ -2,11 +2,13 @@
 # Distributed under the MIT License (see https://opensource.org/licenses/MIT).
 
 # Entry point for the pi appliance
+
+#===============================================================================
 #
-#===================================================
-# In general, don't touch this code!
+# NOTE: In general, don't touch this code!
 # Appliance logic should be in src/appliance.py
-#===================================================
+#
+#===============================================================================
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -50,32 +52,36 @@ def unlock_pid():
 
 
 if __name__ == '__main__':
-    # we exit with these values:
-    # - 0: normal exit (usually via SIGINT)
-    # - 1: already running (or, at least, pid file exists)
-    # - 2: unhandled exception
-    # - Whatever Appliance.run() returns, must be > 10
     logger = configure_logger()
 
     app = Appliance(logger)
 
-    rval = 1
+    # we exit with these values:
+    # - 0: normal exit (usually via SIGINT, but maybe voluntary)
+    # - 10: already running (or, at least, pid file exists)
+    # - 20: pre_flight_checks failed
+    # - 30: unhandled exception
+    # NOTE: these aren't currently processed by the framework.
+    exitcode = 0
     if lock_pid():
         logger.info("Applicance starting up.")
         if app.pre_flight_checks():
             try:
                 logger.info("Appliance running.")
-                while True:
-                    rval = app.run()
-                    if rval > 10:
-                        app.shutdown()
-                        logger.info("Appliance voluntarily shutting down.")
-                        break
+                while app.run():
+                    ... # keep on truckin'
+                logger.info("Appliance shutting down.")
+                app.shutdown()
             except KeyboardInterrupt as e:
                 logger.info("SIGINT (Ctrl+C) caught; exiting.")
-                rval = 0
             except Exception as e:
                 logger.error(f"Encountered an unhandled exception: {str(e)}; Exiting.")
-                rval = 2
+                exitcode = 30
+        else:
+            logger.info("Applicance won't start; Exiting.")
+            exitcode = 20
         unlock_pid()
-    sys.exit(rval)
+    else:
+        print("Applicance seems to be running already; Exiting.")
+        exitcode = 10
+    sys.exit(exitcode)

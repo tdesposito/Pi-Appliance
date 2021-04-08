@@ -2,7 +2,8 @@
 
 Right here, as it turns out.
 
-Place your appliance code into `appliance.py`. Naturally, you can location portions of your code in other files and import them here.
+Place your appliance code into `appliance.py`. Naturally, you can location
+portions of your code in other files and import them here.
 
 ## `__init__()`
 The appliance framework configures and passes a logger object, which
@@ -25,7 +26,7 @@ Return True if we're ready to start; False if not.
 This is the body of the main loop.
 
 You don't have to put any looping in if you don't want to. This will be called
-repeatedly by the framework code until you return a value greater than 10.
+repeatedly by the framework code until you return False.
 
 ## `shutdown()`
 Add any cleanup or shutdown you need to do here.

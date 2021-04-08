@@ -4,10 +4,12 @@ Pi-Appliance is a Template Repo for building appliances in Python on the
 RaspberryPi. We are focused on appliances which connect to various AWS services,
 so we assume an AWS environment configuration.
 
-It includes a configuration manager ("builder") to configure and package the
-appliance code for your Pi, and an installer ("installer") which bootstraps the
-appliance, including installing any features, packages and configuration
-settings needed for the appliance's operations.
+It includes:
+* a configuration manager ("builder") to configure and package the
+appliance code for your Pi
+* an installer ("installer") which bootstraps the appliance
+* a web UI for the appliance
+* a minimal framework for building and running your appliace code
 
 ## Getting Started
 
@@ -24,30 +26,10 @@ settings needed for the appliance's operations.
 All appliance code goes in the `appliance` folder, in `appliance.py` and any other code files you deem necessary. `appliance.py` contains a skeleton you can use to start your work. See the [appliance README](appliance/README.md) for futher details.
 
 ## `builder:` Configure Your Appliance
-The `builder` directory contains a Python module which will help you configure the features and requirements of your appliance, thusly:
+The `builder` module configures the features and requirements of your appliance.
 
+Run it as:
 ```console
 $ poetry run python -m builder
 ```
-![Builder Main Menu](builder-menu.png)
-
-### Add/Remove System Packages
-You can manipulate a list of additional software packages to install during setup of the Pi. These are installed via `apt-get`.
-
-### Select Appliance Features
-We include code and configuration to enable (optionally):
-* Console Auto-login (if not running a desktop)
-* Graphical appliance auto-start (if running a desktop)
-* Automatic reboot of the appliance on your schedule
-* CUPS print server
-* VNC Server (if running a desktop)
-* A Web-based User Interface which allows you to monitor, configure and control the appliance
-* Automatic update of appliance code (both custom and system) upon appliance startup
-
-### Configure Secrets
-Here we collect the various secrets
-We store passwords, access keys and other secrets in `./secrets/secrets.json` which is **EXCLUDED FROM VERSION CONTROL BY .`gitignore`**.
-
-
-
-### Deploy To SD Card
+Read more in the [builder module](builder/README.md) docs.

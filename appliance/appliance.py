@@ -11,7 +11,11 @@ class Appliance():
         :param logger: the system "logger" object.
         """
         self.logger = logger
+        #=======================================================================
+        #
         # TODO: Add any additional initialization here.
+        #
+        #=======================================================================
 
     @staticmethod
     def run_command(cmd):
@@ -29,7 +33,11 @@ class Appliance():
 
         :return: True if we're ready to start; False if not.
         """
+        #=======================================================================
+        #
         # TODO: Place any system checks here.
+        #
+        #=======================================================================
         return True
 
     def run(self):
@@ -37,20 +45,27 @@ class Appliance():
 
         :return: 0 to continue, or something > 10 to signal exit.
         """
-
+        #=======================================================================
+        #
         # TODO: Replace this do-nothing code with some which does something.
         # Don't worry about looping (though you can), since this will be called
         # over and over again by the main appliance loop.
+        #
+        #=======================================================================
         self.logger.info('Nothing to do; sleeping for a while.')
         sleep(10)
 
-        # Return 0 to continue, or something > 10 to signal voluntary exit.
-        return 0
+        # Return something truthy to continue, anything else to exit.
+        return True
 
     def shutdown(self):
         """ Run any clean up needed.
 
         :return: Return value doesn't matter; we're done.
         """
+        #=======================================================================
+        #
         # TODO: Place any cleanup code here.
+        #
+        #=======================================================================
         return
