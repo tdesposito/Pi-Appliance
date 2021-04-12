@@ -35,7 +35,7 @@ def install_home_directory(config):
     copytree(Path("/home/pi/appliance/filesystem/home/pi"), dest)
     copytree(Path("/home/pi/appliance/templates"), dest, config['secrets'])
 
-    for entry in (dest / "bin").glob(*):
+    for entry in (dest / "bin").glob('*'):
         entry.chmod (0o744)
 
 
