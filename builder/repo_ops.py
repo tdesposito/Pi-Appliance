@@ -47,7 +47,7 @@ def get_uncommitted(get_new=True, get_mod=True):
     if get_new:
         uncomm.extend(str(runcmd("git ls-files -o --exclude-standard").stdout, 'utf-8').split("\n"))
     if get_mod:
-        uncomm.extend(str(runcmd("git ls-files -n --exclude-standard").stdout, 'utf-8').split("\n"))
+        uncomm.extend(str(runcmd("git ls-files -m --exclude-standard").stdout, 'utf-8').split("\n"))
     return [e for e in uncomm if e]
 
 
