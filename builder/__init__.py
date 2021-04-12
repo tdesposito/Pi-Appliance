@@ -90,7 +90,9 @@ __all__ = [
     "load_config",
     "load_secrets",
     "prep_screen",
+    "press_any_key",
     "runcmd",
     "save_config",
     "save_secrets",
+    "SECRETS_NAMES",
 ]

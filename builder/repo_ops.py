@@ -19,23 +19,23 @@ def commit_repo(term):
         return
 
     if get_uncommitted(get_new=True, get_mod=False):
-        p = runcmd('git add *')
+        p = runcmd('git add -A')
         if p.returncode:
             return press_any_key(term, f"\n{term.bright_red}Error adding new files:{term.white}\n{p.stdout}\n")
 
-    p = (f"git commit -m '{message}'")
+    p = runcmd(f"git commit -m '{message}'")
     if p.returncode:
         return press_any_key(term, f"\n{term.bright_red}Error committing:{term.white}\n{p.stdout}\n")
 
-    p = (f"git tag {datetime.datetime.now().strftime('APL-%Y%m%d-%H%M')}")
+    p = runcmd(f"git tag {datetime.datetime.now().strftime('APL-%Y%m%d-%H%M')}")
     if p.returncode:
         return press_any_key(term, f"\n{term.bright_red}Error tagging commit:{term.white}\n{p.stdout}\n")
 
-    p = (f"git push")
+    p = runcmd(f"git push")
     if p.returncode:
         return press_any_key(term, f"\n{term.bright_red}Error pushing:{term.white}\n{p.stdout}\n")
 
-    p = (f"git push --tags")
+    p = runcmd(f"git push --tags")
     if p.returncode:
         return press_any_key(term, f"\n{term.bright_red}Error pushing tags:{term.white}\n{p.stdout}\n")
 
@@ -54,13 +54,13 @@ def get_uncommitted(get_new=True, get_mod=True):
 def init_repo(term):
     prep_screen(term, "Initialize Repository")
 
-    printf(f"\n{term.bright_blue}Remote Repository Name (blank to abort): {term.bright_white}")
+    print(f"\n{term.bright_blue}Remote Repository Name (blank to abort): {term.bright_white}")
     repo = input()
     if not repo:
         return
 
     if not Path('./.git').is_dir():
-        p = (f"git init")
+        p = runcmd(f"git init")
         if p.returncode:
             return press_any_key(term, f"\n{term.bright_red}Error initializing repo:{term.white}\n{p.stdout}")
 
@@ -69,7 +69,7 @@ def init_repo(term):
         echo("Creating Repository...")
         rsp = git.create_repository(
             repositoryName=repo,
-            repositoryDescription=f'''<a href="https://github.com/tdesposito/Pi-Appliance">Pi-Appliance</a> Instance For {repo}.'''
+            repositoryDescription=f'''Code for your Pi-Appliance.'''
         )
         if rsp.get('ResponseMetadata',{}).get('HTTPStatusCode') != 200:
             return press_any_key(term, f"\n{term.bright_red}Error creating remote (bad response).{term.white}")
@@ -83,6 +83,8 @@ def init_repo(term):
     except Exception as e:
         return press_any_key(term, f"\n{term.bright_red}Error creating remote:{term.white}\n{e}\n")
 
-    p = (f"git add remote {rsp['repositoryMetadata']['cloneUrlHttp']}")
+    p = runcmd(f"git remote add origin {rsp['repositoryMetadata']['cloneUrlHttp']}")
     if p.returncode:
         return press_any_key(term, f"\n{term.bright_red}Error adding remote:{term.white}\n{p.stdout}\n")
+    else:
+        return press_any_key(term, f"\n{term.bright_green}Repository and Remote initialized.{term.white}")
