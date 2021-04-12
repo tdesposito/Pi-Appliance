@@ -16,13 +16,18 @@ def commit_repo(term):
         message = input()
     if not message:
         return
-    print("\n\n")
+    print(f"{term.white}\n\n")
 
     try:
+        print("Staging files...")
         try_command("git add -A", "Error staging files")
+        print("Comitting locally...")
         try_command("git commit -m", "Error committing", params=f"'{message}'")
+        print("Tagging commit...")
         try_command(f"git tag {datetime.datetime.now().strftime('APL-%Y%m%d-%H%M')}", "Error tagging commit")
+        print("Pushing to remote...")
         try_command("git push", "Error pushing to remote")
+        print("Pushing tags to remote...")
         try_command("git push --tags", "Error pushing tags")
     except Exception as e:
         press_any_key(f"{term.bright_red}{e}{term.white}")
@@ -54,7 +59,7 @@ def init_repo(term):
 
     git = boto3.client('codecommit')
     try:
-        echo("Creating Repository...")
+        echo(f"{term.white}Creating Repository...")
         rsp = git.create_repository(
             repositoryName=repo,
             repositoryDescription=f'''Code for your Pi-Appliance.'''
@@ -72,9 +77,13 @@ def init_repo(term):
         return press_any_key(term, f"\n{term.bright_red}Error creating remote:{term.white}\n{e}\n")
 
     try:
+        print("Adding remote...")
         try_command(f"git remote add origin codecommit::us-east-1://default@{repo}", "Error adding remote")
+        print("Staging first file...")
         try_command("git add .gitignore", "Error adding for initial commit")
+        print("Commiting locally...")
         try_command("git commit -m", "Error creating initial commit", params="'init repository'")
+        print("Pushing to remote...")
         try_command("git push --set-upstream origin main", "Error setting upstream")
     except Exception as e:
         press_any_key(f"{term.bright_red}{e}{term.white}")
