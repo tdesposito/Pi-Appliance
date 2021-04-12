@@ -1,6 +1,6 @@
 # Pi-Appliance Framework
 
-Pi-Appliance is a Template Repo for building appliances in Python on the
+Pi-Appliance is a template for building appliances in Python on the
 RaspberryPi. We are focused on appliances which connect to various AWS services,
 so we assume an AWS environment configuration.
 
