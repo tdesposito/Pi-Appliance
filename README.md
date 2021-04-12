@@ -13,7 +13,7 @@ appliance code for your Pi
 
 ## Getting Started
 
-1. [Download](https://github.com/tdesposito/Pi-Appliance/archive/refs/heads/release.zip) this repo. You don't want to clone; this is intended to be a _template_, after all.
+1. [Download](https://github.com/tdesposito/Pi-Appliance/archive/refs/heads/main.zip) this repo. You don't want to clone; this is intended to be a _template_, after all.
 1. Extract the file to wherever you want to work with it. You'll likely want to extract the top-level folder from the ZIP file into your project directory.
 1. Install [Poetry](https://python-poetry.org) is you haven't already.
 1. Run `poetry install` to create and populate the Virtual Environment for the project.
