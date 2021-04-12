@@ -30,9 +30,12 @@ We include code and configuration to enable (optionally):
 * A Web-based User Interface which allows you to monitor, configure and control the appliance
 * Automatic update of appliance code (both custom and system) upon appliance startup
 
-## Configure Secrets
-Here we collect the various secrets
-We store passwords, access keys and other secrets in `./secrets/secrets.json` which is **EXCLUDED FROM VERSION CONTROL BY .`gitignore`**.
+## Edit Secret Parameters
+Here we collect the various passwords, access keys and other secrets needed for
+the appliance to operate.
+
+We store these in `./secrets/secrets.json` which is **EXCLUDED FROM VERSION
+CONTROL BY .`gitignore`**.
 
 ## Commit Updates To Repository
 **Only available if you have un-managed or un-staged local changes.**
@@ -42,5 +45,14 @@ also create a tag for the commit which will be used in future to manage
 appliance updates.
 
 ## Deploy To SD Card
-After mounting your SD Card, this will deploy what we need to bootstrap the
-appliance to the SD card's /boot partition.
+This will deploy what we need to bootstrap the appliance to the SD card's /boot
+partition.
+
+### How to Prepare the SD Card
+1. Download and install the [Raspberry Pi Imager](https://www.raspberrypi.org/downloads/)
+1. Use the Raspberry Pi Imager to write the OS image to the SD card
+1. Take a coffee break while ↑ completes
+1. Mount the SD card locally
+
+### After Deploying
+You'll need to unmount the SD card before putting it into your Pi.

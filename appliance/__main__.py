@@ -73,6 +73,7 @@ if __name__ == '__main__':
                 logger.info("Appliance shutting down.")
                 app.shutdown()
             except KeyboardInterrupt as e:
+                app.shutdown()
                 logger.info("SIGINT (Ctrl+C) caught; exiting.")
             except Exception as e:
                 logger.error(f"Encountered an unhandled exception: {str(e)}; Exiting.")
