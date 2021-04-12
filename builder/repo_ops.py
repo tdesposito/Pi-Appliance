@@ -14,32 +14,20 @@ def commit_repo(term):
     with term.location():
         echo(f"{term.bright_blue}Commit Message (blank to abort): {term.bright_white}")
         message = input()
-        print("\n\n")
     if not message:
         return
+    print("\n\n")
 
-    if get_uncommitted(get_new=True, get_mod=False):
-        p = runcmd('git add -A')
-        if p.returncode:
-            return press_any_key(term, f"\n{term.bright_red}Error adding new files:{term.white}\n{p.stdout}\n")
-
-    p = runcmd(f"git commit -m '{message}'")
-    if p.returncode:
-        return press_any_key(term, f"\n{term.bright_red}Error committing:{term.white}\n{p.stdout}\n")
-
-    p = runcmd(f"git tag {datetime.datetime.now().strftime('APL-%Y%m%d-%H%M')}")
-    if p.returncode:
-        return press_any_key(term, f"\n{term.bright_red}Error tagging commit:{term.white}\n{p.stdout}\n")
-
-    p = runcmd(f"git push")
-    if p.returncode:
-        return press_any_key(term, f"\n{term.bright_red}Error pushing:{term.white}\n{p.stdout}\n")
-
-    p = runcmd(f"git push --tags")
-    if p.returncode:
-        return press_any_key(term, f"\n{term.bright_red}Error pushing tags:{term.white}\n{p.stdout}\n")
-
-    press_any_key(term, f"{term.bright_blue}Done.{term.white}")
+    try:
+        try_command("git add -A", "Error staging files")
+        try_command("git commit -m", "Error committing", params=f"'{message}'")
+        try_command(f"git tag {datetime.datetime.now().strftime('APL-%Y%m%d-%H%M')}", "Error tagging commit")
+        try_command("git push", "Error pushing to remote")
+        try_command("git push --tags", "Error pushing tags")
+    except Exception as e:
+        press_any_key(f"{term.bright_red}{e}{term.white}")
+    else:
+        press_any_key(term, f"{term.bright_blue}Done.{term.white}")
 
 
 def get_uncommitted(get_new=True, get_mod=True):
@@ -83,8 +71,12 @@ def init_repo(term):
     except Exception as e:
         return press_any_key(term, f"\n{term.bright_red}Error creating remote:{term.white}\n{e}\n")
 
-    p = runcmd(f"git remote add origin {rsp['repositoryMetadata']['cloneUrlHttp']}")
-    if p.returncode:
-        return press_any_key(term, f"\n{term.bright_red}Error adding remote:{term.white}\n{p.stdout}\n")
+    try:
+        try_command(f"git remote add origin codecommit::us-east-1://default@{repo}", "Error adding remote")
+        try_command("git add .gitignore", "Error adding for initial commit")
+        try_command("git commit -m", "Error creating initial commit", params="'init repository'")
+        try_command("git push --set-upstream origin main", "Error setting upstream")
+    except Exception as e:
+        press_any_key(f"{term.bright_red}{e}{term.white}")
     else:
-        return press_any_key(term, f"\n{term.bright_green}Repository and Remote initialized.{term.white}")
+        press_any_key(term, f"\n{term.bright_green}Repository and Remote initialized.{term.white}")

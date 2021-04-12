@@ -68,8 +68,11 @@ def press_any_key(term, msg):
     return
 
 
-def runcmd(cmd):
-    return subprocess.run(cmd.split(' '), capture_output=True)
+def runcmd(cmd, params=None):
+    c = cmd.split(' ')
+    if params:
+        c.append(params)
+    return subprocess.run(c, capture_output=True)
 
 
 def save_config(config):
@@ -84,6 +87,11 @@ def save_secrets(secrets):
         json.dump(secrets, _, indent=2, sort_keys=True)
 
 
+def try_command(cmd, error, params=None):
+    proc = runcmd(cmd, params)
+    if proc.returncode:
+        raise Exception(f"{error}: {proc.stderr}")
+
 __all__ = [
     "do_menu",
     "echo",
@@ -95,4 +103,5 @@ __all__ = [
     "save_config",
     "save_secrets",
     "SECRETS_NAMES",
+    "try_command",
 ]
