@@ -53,7 +53,7 @@ After you've used the `builder` to deploy the bootstrap files to the SD card:
     * This will clone the repository your appliance code is in. Make sure it's pushed to the remote!
 1. Unless there are errors - watch the screen - the Pi will reboot and start running your appliance code
 
-## Automatic Update.
+## Automatic Update
 Every time the appliance starts up, either due to reboot, or by operation of the
 WebUI, the appliance will pull all code updates from the repository's default
 branch (whatever you define that as). To update your appliance code, just push
