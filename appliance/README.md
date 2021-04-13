@@ -12,10 +12,10 @@ appliance code.
 ### Logger
 We create and configure the system logger. We output all `INFO` or higher log
 entries to the console and to `/home/pi/log/appliance.log`. The log file is
-automatically rotated when it exceeds 128kb in size, and we keep four
-previously-rotated logs.
+automatically rotated daily at midnight (UTC), and we keep fourteen (two weeks')
+logs.
 
-This logger is available as `self.logger` inside the `Appliance` instance.
+The logger is available as `self.logger` inside the `Appliance` instance.
 
 ### The Lock File
 The framework stores its PID in a lockfile at

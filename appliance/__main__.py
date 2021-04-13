@@ -11,7 +11,7 @@
 #===============================================================================
 
 import logging
-from logging.handlers import RotatingFileHandler
+from logging.handlers import TimedRotatingFileHandler
 import os
 import sys
 
@@ -24,7 +24,7 @@ def configure_logger():
     logformatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
     consolelogger = logging.StreamHandler()
     consolelogger.setFormatter(logformatter)
-    filelogger = RotatingFileHandler(LOGFILE, maxBytes=128*1024, backupCount=4)
+    filelogger = TimedRotatingFileHandler(LOGFILE, when="d", backupCount=14)
     filelogger.setFormatter(logformatter)
 
     logger = logging.getLogger()
