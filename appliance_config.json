@@ -1,8 +1,6 @@
 {
   "appliance_features": [
     "auto_reboot",
-    "console_autologin",
-    "cups",
     "webui"
   ],
   "system_packages": []
