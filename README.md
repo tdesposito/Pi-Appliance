@@ -14,10 +14,11 @@ appliance code for your Pi
 ## Getting Started
 
 1. [Download](https://github.com/tdesposito/Pi-Appliance/archive/refs/heads/main.zip) this repo. You don't want to clone; this is intended to be a _template_, after all.
-1. Extract the file to wherever you want to work with it. You'll likely want to extract the top-level folder from the ZIP file into your project directory.
+    * Extract the file to wherever you want to work with it. You'll likely want to extract the top-level folder from the ZIP file into your project directory.
+    * Alternatively, clone this repository then delete your `.git` directory. Your call.
 1. Install [Poetry](https://python-poetry.org) is you haven't already.
 1. Run `poetry install` to create and populate the Virtual Environment for the project.
-1. Write your code. See **Write Your Appliance Code**, below. Write, test, repeat.
+1. Write your code. See **Write Your Appliance Code**, below. Code, test, repeat.
 1. Use the **Builder** (see below) to configure the appliance and write that configuration to your Pi's SD Card.
 1. Boot the Pi, run `initial-setup`, rejoice in the magic.
 
@@ -26,6 +27,9 @@ All appliance code goes in the `appliance` folder, in `appliance.py` and any
 other code files you deem necessary. `appliance.py` contains a skeleton you can
 use to start your work. See the [appliance README](appliance/README.md) for
 futher details.
+
+By default, `pytest` and `pylama` are installed as dev dependencies; feel free
+to make use of them, or don't.
 
 ## `builder:` Configure Your Appliance
 The `builder` module configures the features and requirements of your appliance.
