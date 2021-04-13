@@ -9,4 +9,4 @@ tab="/var/spool/cron/crontabs/pi"
 sudo touch $tab
 sudo chmod 600 $tab
 sudo chown pi:crontab $tab
-sudo bash -c "cat </home/pi/appliance_features/auto_reboot/auto_reboot.cron >>$tab"
+sudo bash -c "cat </home/pi/appliance/appliance_features/auto_reboot/auto_reboot.cron >>$tab"

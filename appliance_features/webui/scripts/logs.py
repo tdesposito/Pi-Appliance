@@ -3,7 +3,7 @@
 import os
 from subprocess import run
 
-with open('/home/pi/appliance/webui/templates/logs.html') as _:
+with open('/home/pi/appliance/appliance_features/webui/templates/logs.html') as _:
     template = _.read()
 
 params = {

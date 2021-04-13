@@ -5,7 +5,7 @@ __version__ = "0.1.0"
 
 def install_appliance_requirements(config):
     print("Installing Appliance Requirements...")
-    runcmd("python -m pip install /home/pi/appliance/requirements.txt")
+    runcmd("python -m pip install -r /home/pi/appliance/requirements.txt")
 
 
 def install_features(config):
@@ -16,11 +16,11 @@ def install_features(config):
 
 
 def install_home_directory(config):
-    def copytree(src, dest, tplvars):
+    def copytree(src, dest, tplvars=None):
         for entry in src.glob('*'):
             t = dest / entry.name
             if entry.is_dir():
-                t.mkdir()
+                t.mkdir(exist_ok=True)
                 copytree(entry, t)
             else:
                 with open(entry, 'rb') as _, open(t, 'wb') as __:
@@ -47,7 +47,7 @@ def install_system_packages(config):
 
 def runcmd(cmd):
     # Will throw if the command fails, to be caught by __main__
-    run(cmd.split(' '), capture_output=True, check=True)
+    run(cmd.split(' '), capture_output=False, check=True)
 
 
 __all__ = [
