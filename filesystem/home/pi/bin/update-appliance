@@ -17,14 +17,13 @@ else
       echo -e "\a\nError cloning repository. Run:\n\tgit clone $repo ~/appliance"
       exit 60
     fi
-  fi
-fi
-
-if [ -f /home/pi/appliance/requirements.txt ]; then
-  echo -e 'Installing appliance requirements...'
-  sudo python3 -m pip install --upgrade -r /home/pi/appliance/requirements.txt >/dev/null 2>&1
-  if [ $? -ne 0 ]; then
-    echo -e '\a\nError installing requirements. Run:\n\tsudo python3 -m pip install -r ~/appliance/requirements.txt'
-    exit 61
+    if [ -f /home/pi/appliance/requirements.txt ]; then
+      echo -e 'Installing appliance requirements...'
+      sudo python3 -m pip install --upgrade -r /home/pi/appliance/requirements.txt >/dev/null 2>&1
+      if [ $? -ne 0 ]; then
+        echo -e '\a\nError installing requirements. Run:\n\tsudo python3 -m pip install -r ~/appliance/requirements.txt'
+        exit 61
+      fi
+    fi
   fi
 fi

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script restarts the appliance.
+# This script gets the appliance's pid, if it exists.
 pidfile="/var/run/user/1000/appliance.pid"
 if [ -f $pidfile ]; then
   pid=$(<$pidfile)
