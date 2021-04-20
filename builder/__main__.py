@@ -9,8 +9,7 @@ from .edit_params import edit_params
 from .repo_ops import init_repo, commit_repo, get_uncommitted
 from .system_packages import system_packages
 
-if __name__ == '__main__':
-    term = blessed.Terminal()
+def buildmenu():
     menu = {}
     if not Path("./.git").is_dir():
         menu['I'] = ["Initialize Repository", init_repo]
@@ -24,5 +23,10 @@ if __name__ == '__main__':
     menu.update({
         'D': ["Deploy To SD Card", deploy],
     })
-    with term.fullscreen():
-        do_menu(term, "Main Menu", menu)
+    return menu
+
+if __name__ == '__main__':
+    term = blessed.Terminal()
+    menu = buildmenu()
+    while do_menu(term, "Main Menu", menu):
+        menu = buildmenu()
