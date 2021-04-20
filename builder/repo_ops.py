@@ -22,7 +22,7 @@ def commit_repo(term):
         print("Staging files...")
         try_command("git add -A", "Error staging files")
         print("Comitting locally...")
-        try_command("git commit -m", "Error committing", params=f"'{message}'")
+        try_command("git commit -m", "Error committing", params=message)
         print("Tagging commit...")
         try_command(f"git tag {datetime.datetime.now().strftime('APL-%Y%m%d-%H%M')}", "Error tagging commit")
         print("Pushing to remote...")
@@ -82,7 +82,7 @@ def init_repo(term):
         print("Staging first file...")
         try_command("git add .gitignore", "Error adding for initial commit")
         print("Commiting locally...")
-        try_command("git commit -m", "Error creating initial commit", params="'init repository'")
+        try_command("git commit -m", "Error creating initial commit", params="init repository")
         print("Pushing to remote...")
         try_command("git push --set-upstream origin main", "Error setting upstream")
     except Exception as e:
