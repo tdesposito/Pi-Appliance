@@ -13,9 +13,17 @@ appliance code for your Pi
 
 ## Getting Started
 
-1. [Download](https://github.com/tdesposito/Pi-Appliance/archive/refs/heads/main.zip) this repo. You don't want to clone; this is intended to be a _template_, after all.
-    * Extract the file to wherever you want to work with it. You'll likely want to extract the top-level folder from the ZIP file into your project directory.
-    * Alternatively, clone this repository then delete your `.git` directory. Your call.
+1. [Download](https://github.com/tdesposito/Pi-Appliance/archive/refs/heads/main.zip) or [git clone](https://github.com/tdesposito/Pi-Appliance.git) this repo.
+  * If you downloaded it, extract the file to wherever you want to work with it.
+  * If you cloned it, delete the `.git` directory in your clone.
+1. Modify the `pyproject.toml` configuration file:
+```
+[tool.poetry]
+name = "{{Put Your Project Name Here}}"
+version = "0.1.0"
+description = "{{Put Your Project Description Here}}"
+authors = [{{Put Your Name/email Here}}]
+```
 1. Install [Poetry](https://python-poetry.org) is you haven't already.
 1. Run `poetry install` to create and populate the Virtual Environment for the project.
 1. Write your code. See **Write Your Appliance Code**, below. Code, test, repeat.

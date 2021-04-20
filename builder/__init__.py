@@ -28,13 +28,15 @@ def do_menu(term, title, menu):
         print("   x) Exit\n")
         echo(f"{term.bright_blue}Option?{term.white} ")
 
-    draw_menu(term, title, menu)
-    while True:
-        with term.cbreak(): key = term.inkey()
-        if key == 'x' or key == 'X':
-            return
-        if key.upper() in menu.keys():
-            menu[key.upper()][1](term)
+    with term.fullscreen():
+        draw_menu(term, title, menu)
+        while True:
+            with term.cbreak(): key = term.inkey()
+            if key == 'x' or key == 'X':
+                return False
+            if key.upper() in menu.keys():
+                menu[key.upper()][1](term)
+                return True # Forces re-build of menu options
             draw_menu(term, title, menu)
 
 
