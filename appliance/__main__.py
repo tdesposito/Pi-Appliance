@@ -34,16 +34,16 @@ def configure_logger():
 
     return logger
 
-def lock_pid():
+def lock_pid(logger):
     if os.path.isfile(PIDFILE):
-        log.error(f"Won't start: {PIDFILE} exists.")
+        logger.error(f"Won't start: {PIDFILE} exists.")
         return False
     try:
         with open(PIDFILE, 'w') as p:
             p.write(str(os.getpid()))
         return True
     except Exception as e:
-        log.error(f"Can't write {PIDFILE}; exiting.")
+        logger.error(f"Can't write {PIDFILE}; exiting.")
         return False
 
 
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     # - 30: unhandled exception
     # NOTE: these aren't currently processed by the framework.
     exitcode = 0
-    if lock_pid():
+    if lock_pid(logger):
         logger.info("Applicance starting up.")
         if app.pre_flight_checks():
             try:
